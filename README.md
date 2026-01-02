@@ -9,6 +9,13 @@ This project bundles a simple Node.js service with a reusable Helm chart so plat
 | `app/` | Express service exposing `/healthz` and `/api/message`. Includes eslint + node tests so templates never ship unverified builds. |
 | `helm/app-chart/` | Helm chart with Deployment, Service, ConfigMap, and Ingress templates. `values.yaml` captures image tags, replica counts, probe settings, and environment-specific settings. |
 
+## Prerequisites
+
+- Node.js 18+
+- npm
+- Helm 3.11+ (installed locally or via `azure/setup-helm@v3` in CI)
+- Access to a Kubernetes cluster (kind, k3d, AKS, EKS, etc.) if you want to run `helm upgrade --install`
+
 ## Local development
 
 ```bash
@@ -23,6 +30,17 @@ Override the message:
 ```bash
 APP_MESSAGE="Welcome from staging" npm run dev
 ```
+
+## Key chart values
+
+| Value | Description |
+| --- | --- |
+| `image.repository` / `image.tag` | Container image to deploy; defaults to `ghcr.io/kennethfeh/helm-app:latest`. Override with your registry + Git SHA. |
+| `replicaCount` | Number of Pods behind the Service. |
+| `ingress.hosts[0].host` | Hostname routed to the service; defaults to `retail-app.local`. |
+| `config.appMessage` | Text rendered by the API response and ConfigMap. |
+| `livenessProbe` / `readinessProbe` | HTTP probe paths/thresholds. |
+| `resources.requests`/`limits` | CPU/memory guardrails for production clusters. |
 
 ## Helm workflow
 
