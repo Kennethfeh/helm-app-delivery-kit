@@ -1,0 +1,36 @@
+name: Helm App Delivery CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          cd app
+          npm ci
+      - name: Lint service
+        run: |
+          cd app
+          npm run lint
+      - name: Test service
+        run: |
+          cd app
+          npm test
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.13.0
+      - name: Helm lint
+        run: helm lint helm/app-chart
+      - name: Helm template
+        run: helm template app helm/app-chart
