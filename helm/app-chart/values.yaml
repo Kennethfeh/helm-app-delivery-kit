@@ -1,0 +1,21 @@
+image:
+  repository: kennethfeh/helm-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: helm-app.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+env:
+  APP_MESSAGE: "Hello from Helm"

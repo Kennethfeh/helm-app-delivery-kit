@@ -1,0 +1,5 @@
+apiVersion: v2
+name: app-chart
+version: 0.1.0
+appVersion: "1.0.0"
+description: Helm chart for the Node.js service
