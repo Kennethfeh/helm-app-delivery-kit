@@ -1,6 +1,6 @@
 # Helm App Delivery Kit
 
-This project bundles a simple Node.js service with a reusable Helm chart so platform teams can roll it into any cluster. It demonstrates how I pair application code, deployment templates, and CI checks to prevent drift.
+This project bundles a simple Node.js service with a reusable Helm chart so platform teams can roll it into any cluster. It shows how application code, deployment templates, and CI checks stay aligned to prevent drift.
 
 ## What lives here
 
